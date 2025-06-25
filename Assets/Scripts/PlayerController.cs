@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
         isRun = true;
         applySpeed = runSpeed;
     }
-
     private void Walk()
     {
         isRun = false;
@@ -133,7 +132,6 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
     }
-
     private void Jump()
     {
         //점프를 누르면 웅크리기 해제
@@ -142,7 +140,6 @@ public class PlayerController : MonoBehaviour
 
         myRigid.linearVelocity = transform.up * jumpForce;
     }
-
     private void IsGround()
     {
         //캡슐콜라이더 영역의 y길이 반을 레이저로 쏘기
@@ -158,7 +155,6 @@ public class PlayerController : MonoBehaviour
             Crouch();
         }
     }
-
     private void Crouch()
     {
         isCrouch = !isCrouch;
