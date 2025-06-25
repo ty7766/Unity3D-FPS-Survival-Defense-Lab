@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
+    private Animator animator;
     public Camera cam;
 
     //초기화
@@ -42,8 +43,9 @@ public class PlayerController : MonoBehaviour
         myRigid = GetComponent<Rigidbody>();
         cam = FindAnyObjectByType<Camera>();        //씬 내 카메라는 1개이므로 Any 선택
         capsuleCollider = GetComponent<CapsuleCollider>();
+        animator = GetComponent<Animator>();
 
-        applySpeed = runSpeed;                      //기본 상태 초기화 (걷기)
+        applySpeed = walkSpeed;                     //기본 상태 초기화 (걷기)
 
         originPosY = cam.transform.localPosition.y;
         applyCrouchPosY = originPosY;               //웅크리기 정도 초기화
