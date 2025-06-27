@@ -5,25 +5,29 @@ using UnityEngine.Audio;
 
 public class GunController : MonoBehaviour
 {
-    [Header("연결 오브젝트")]
+    [Header("현재 장착된 총")]
     [SerializeField]
     private Gun currentGun;
 
-
-    [Header("정조준 관련")]
-    [SerializeField]
     private Vector3 originPos;              //원래 위치 (정조준 X)
-
-
     private float currentFireRate;
     private bool isReload = false;
-    private bool isFineSightMode = false;
+    [HideInInspector]
+    public bool isFineSightMode = false;
+    private RaycastHit hitInfo;             //총알에 피격된 오브젝트
+
+    [Header("연결 컴포넌트")]
+    [SerializeField]
+    private Camera cam;
+    [SerializeField]
+    private GameObject hit_effect_prefab;       //피격 이펙트
 
     private AudioSource audioSource;
 
     //초기화
     void Start()
     {
+        originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -76,11 +80,23 @@ public class GunController : MonoBehaviour
         PlaySoundEffect(currentGun.fireSound);
         //이펙트 적용
         currentGun.muzzleFlash.Play();
+        //피격 적용
+        Hit();
         //총기 반동 적용
         StopAllCoroutines();
         StartCoroutine(RetroActionCoroutine());
+    }
 
-        Debug.Log("총알 발사!");
+    //-------------------------- 피격 적용 -------------------------
+    private void Hit()
+    {
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, currentGun.range))
+        {
+            //표면이 바라보는 방향에 따라서 피격 이펙트의 방향을 적용
+            GameObject clone = Instantiate(hit_effect_prefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+            //이펙트 적용이 다 끝난 clone은 1.5초 후 삭제
+            Destroy(clone, 1.5f);
+        }
     }
 
     //--------------------------- 수동 재장전 메소드 ----------------------
@@ -134,8 +150,7 @@ public class GunController : MonoBehaviour
         }
     }
 
-    //------------------------- 정조준 -------------------------
-
+    //------------------------- 정조준 ------------------------
     private void TryFineSight()
     {
         //재장전 도중에 정조준 방지
@@ -171,6 +186,7 @@ public class GunController : MonoBehaviour
             FineSight();
     }
 
+    //정조준 활성
     IEnumerator FineSightActivateCoroutine()
     {
         //정조준 위치 시점과  현재 위치 시점이 같아질때 까지 반복
@@ -181,6 +197,7 @@ public class GunController : MonoBehaviour
         }
     }
 
+    //정조준 비활성
     IEnumerator FineSightDeactivateCoroutine()
     {
         //정조준 위치 시점과  현재 위치 시점이 같아질때 까지 반복
