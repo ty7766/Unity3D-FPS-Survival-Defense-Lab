@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
     private bool isRun = false;
     private bool isCrouch = false;
 
+    [Header("연결 컴포넌트")]
+    public Camera cam;
+
+    private GunController gunController;
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
     private Animator animator;
-    public Camera cam;
 
     //초기화
     void Start()
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
+        gunController = FindAnyObjectByType<GunController>();
 
         applySpeed = walkSpeed;                     //기본 상태 초기화 (걷기)
 
@@ -116,6 +120,9 @@ public class PlayerController : MonoBehaviour
         //달리기를 누르면 웅크리기 해제
         if (isCrouch)
             Crouch();
+
+        //달릴 때 정조준 해제
+        gunController.CancelFineSight();
 
         isRun = true;
         applySpeed = runSpeed;
