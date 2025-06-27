@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         myRigid = GetComponent<Rigidbody>();
-        cam = FindAnyObjectByType<Camera>();        //씬 내 카메라는 1개이므로 Any 선택
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
 
