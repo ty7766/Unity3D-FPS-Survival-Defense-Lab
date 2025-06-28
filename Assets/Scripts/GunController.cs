@@ -5,6 +5,8 @@ using UnityEngine.Audio;
 
 public class GunController : MonoBehaviour
 {
+    public static bool isActivate = true;       //무기 활성화 여부
+
     [Header("현재 장착된 총")]
     [SerializeField]
     private Gun currentGun;
@@ -20,6 +22,7 @@ public class GunController : MonoBehaviour
     public Camera cam;
     public GameObject hit_effect_prefab;       //피격 이펙트
     public CrossHair crossHair;
+    public PlayerController playerController;
 
     private AudioSource audioSource;
 
@@ -29,15 +32,22 @@ public class GunController : MonoBehaviour
         originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
         crossHair = FindAnyObjectByType<CrossHair>();
+
+        //디폴트 무기 생성
+        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnimator = currentGun.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        GunFireRateCalculate();
-        TryFire();
-        TryReload();
-        TryFineSight();
+        //현재 무기가 "맨손"일 때 총에 대한 상호작용 금지
+        if (isActivate)
+        {
+            GunFireRateCalculate();
+            TryFire();
+            TryReload();
+            TryFineSight();
+        }
     }
 
     //-------------------- 총의 발사 시간 처리 메소드 -------------------
@@ -47,6 +57,7 @@ public class GunController : MonoBehaviour
         if (currentFireRate > 0)
             currentFireRate -= Time.deltaTime;      //1초에 1 감소
     }
+
 
     //------------------- 발사 메소드 -----------------------
     private void TryFire()
@@ -59,7 +70,7 @@ public class GunController : MonoBehaviour
     //발사 전
     private void Fire()
     {
-        if (!isReload)
+        if (!isReload && !playerController.isRun)
         {
             if (currentGun.currentBulletCount > 0)
                 Shoot();
@@ -87,6 +98,7 @@ public class GunController : MonoBehaviour
         StartCoroutine(RetroActionCoroutine());
     }
 
+
     //-------------------------- 피격 적용 -------------------------
     private void Hit()
     {
@@ -105,7 +117,8 @@ public class GunController : MonoBehaviour
         }
     }
 
-    //--------------------------- 수동 재장전 메소드 ----------------------
+
+    //--------------------------- 재장전 ----------------------
     private void TryReload()
     {
         if (Input.GetKeyDown(KeyCode.R) && !isReload && currentGun.currentBulletCount < currentGun.reloadBulletCount)
@@ -114,18 +127,9 @@ public class GunController : MonoBehaviour
             StartCoroutine(ReloadCoroutine());
         }
     }
-
-    //------------------- 총격 사운드 재생 -----------------
-    private void PlaySoundEffect(AudioClip _clip)
-    {
-        audioSource.clip = _clip;
-        audioSource.Play();
-    }
-
-    //------------------- 자동 재장전 메소드 -------------------
     IEnumerator ReloadCoroutine()
     {
-        if(currentGun.carryBulletCount > 0)
+        if (currentGun.carryBulletCount > 0)
         {
             isReload = true;
             currentGun.anim.SetTrigger("Reload");
@@ -134,7 +138,7 @@ public class GunController : MonoBehaviour
             currentGun.currentBulletCount = 0;
 
             yield return new WaitForSeconds(currentGun.reloadTime);
-            
+
             //재장전할 수 있는 최대 개수보다 내가 총 가지고 있는 총알 수가 많으면 최대치를 재장전
             if (currentGun.carryBulletCount >= currentGun.reloadBulletCount)
             {
@@ -155,6 +159,23 @@ public class GunController : MonoBehaviour
             Debug.Log("소유한 총알이 없음!");
         }
     }
+    public void CancelReload()
+    {
+        if (isReload)
+        {
+            StopAllCoroutines();
+            isReload = false;
+        }
+    }
+
+
+    //------------------- 총격 사운드 재생 -----------------
+    private void PlaySoundEffect(AudioClip _clip)
+    {
+        audioSource.clip = _clip;
+        audioSource.Play();
+    }
+
 
     //------------------------- 정조준 ------------------------
     private void TryFineSight()
@@ -201,7 +222,6 @@ public class GunController : MonoBehaviour
             yield return null;
         }
     }
-
     //정조준 비활성
     IEnumerator FineSightDeactivateCoroutine()
     {
@@ -212,6 +232,7 @@ public class GunController : MonoBehaviour
             yield return null;
         }
     }
+
 
     //-------------------------- 총기 반동 -----------------------------
     IEnumerator RetroActionCoroutine()
@@ -258,6 +279,23 @@ public class GunController : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+
+    //----------------------------- 무기 교체 ----------------------------
+    public void GunChange(Gun _gun)
+    {
+        if(WeaponManager.currentWeapon != null)
+            WeaponManager.currentWeapon.gameObject.SetActive(false);        //현재 무기 안보이게 하기
+
+        currentGun = _gun;                                                  //다음 무기를 현재 무기로 설정
+        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>(); //다음 무기의 오브젝트 적용
+        WeaponManager.currentWeaponAnimator = currentGun.anim;              //다음 무기의 애니메이션 적용
+
+        currentGun.transform.localPosition = Vector3.zero;
+        currentGun.gameObject.SetActive(true);                              //다음 무기 보이게 하기
+
+        isActivate = true;
     }
 
 

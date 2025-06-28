@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     //상태변수
     private bool isGround = true;
-    private bool isRun = false;
+    public bool isRun = false;
     private bool isCrouch = false;
     private bool isWalk = false;
 
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
     {
         //캡슐콜라이더 영역의 y길이 반을 레이저로 쏘기
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
-        crossHair.RunningAnimation(!isGround);
+        crossHair.JumpAnimation(!isGround);
     }
 
 

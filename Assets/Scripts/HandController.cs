@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
+    public static bool isActivate = false;       //무기 활성화 여부
+
     [Header("현재 장착 Hand형 타입 무기")]
     public Hand currentHand;
 
@@ -12,7 +14,9 @@ public class HandController : MonoBehaviour
 
     void Update()
     {
-        TryAttack();
+        //현재 무기가 "총"인 경우 맨손 상호작용 금지
+        if (isActivate)
+            TryAttack();
     }
     
     //------------------- 플레이어 공격 ---------------------------
@@ -74,5 +78,21 @@ public class HandController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    //----------------------------- 무기 교체 ----------------------------
+    public void HandChange(Hand _hand)
+    {
+        if (WeaponManager.currentWeapon != null)
+            WeaponManager.currentWeapon.gameObject.SetActive(false);        //현재 무기 안보이게 하기
+
+        currentHand = _hand;                                                  //다음 무기를 현재 무기로 설정
+        WeaponManager.currentWeapon = currentHand.GetComponent<Transform>(); //다음 무기의 오브젝트 적용
+        WeaponManager.currentWeaponAnimator = currentHand.anim;              //다음 무기의 애니메이션 적용
+
+        currentHand.transform.localPosition = Vector3.zero;
+        currentHand.gameObject.SetActive(true);                              //다음 무기 보이게 하기
+
+        isActivate = true;
     }
 }
