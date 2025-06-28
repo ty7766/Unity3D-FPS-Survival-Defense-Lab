@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 26343365}
   - component: {fileID: 26343366}
   - component: {fileID: 26343367}
+  - component: {fileID: 26343368}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26343363}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffadff6a96f1dbb4f93c4276b0330c26, type: 3}
   m_Name: 
@@ -184,7 +185,7 @@ MonoBehaviour:
   isFineSightMode: 0
   cam: {fileID: 330585545}
   hit_effect_prefab: {fileID: 7587487263300603943, guid: 3bfad10c84b01434b9cb86954f986031, type: 3}
-  crossHair: {fileID: 0}
+  crossHair: {fileID: 1422843286}
 --- !u!82 &26343367
 AudioSource:
   m_ObjectHideFlags: 0
@@ -282,6 +283,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &26343368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26343363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56e7030fe6e2c14697ffe6821c60cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeWeaponDelayTime: 0.1
+  changeWeaponEndDelayTime: 0.1
+  currentWeaponType: GUN
+  guns:
+  - {fileID: 32020004}
+  hands:
+  - {fileID: 1817010331}
+  gunController: {fileID: 26343366}
+  handController: {fileID: 26343365}
 --- !u!4 &32020001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 926468831388095538, guid: 53d0d7c64ba3e554794f076b395013b3, type: 3}
