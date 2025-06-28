@@ -17,10 +17,9 @@ public class GunController : MonoBehaviour
     private RaycastHit hitInfo;             //총알에 피격된 오브젝트
 
     [Header("연결 컴포넌트")]
-    [SerializeField]
-    private Camera cam;
-    [SerializeField]
-    private GameObject hit_effect_prefab;       //피격 이펙트
+    public Camera cam;
+    public GameObject hit_effect_prefab;       //피격 이펙트
+    public CrossHair crossHair;
 
     private AudioSource audioSource;
 
@@ -29,6 +28,7 @@ public class GunController : MonoBehaviour
     {
         originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
+        crossHair = FindAnyObjectByType<CrossHair>();
     }
 
     // Update is called once per frame
@@ -56,7 +56,6 @@ public class GunController : MonoBehaviour
             Fire();
         }
     }
-
     //발사 전
     private void Fire()
     {
@@ -68,10 +67,11 @@ public class GunController : MonoBehaviour
                 StartCoroutine(ReloadCoroutine());
         }
     }
-
     //발사 후
     private void Shoot()
     {
+        //크로스헤어 반동 애니메이션 적용
+        crossHair.FireAnimation();
         //현재 총알 개수 감소
         currentGun.currentBulletCount--;
         //연사속도 재계산
@@ -90,7 +90,13 @@ public class GunController : MonoBehaviour
     //-------------------------- 피격 적용 -------------------------
     private void Hit()
     {
-        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, currentGun.range))
+        //Ray를 축에서 조금 벗어나게 설정 -> 반동 설정
+        //총알이 나아가는 방향을 제외한 다른 방향 축을 Random을 이용하여 흔들기
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward +
+            new Vector3(Random.Range(-crossHair.GetAccuracy() - currentGun.accuracy, crossHair.GetAccuracy() + currentGun.accuracy),        //x축 반동
+                        Random.Range(-crossHair.GetAccuracy() - currentGun.accuracy, crossHair.GetAccuracy() + currentGun.accuracy),        //y축 반동
+                        0)
+            ,out hitInfo, currentGun.range))
         {
             //표면이 바라보는 방향에 따라서 피격 이펙트의 방향을 적용
             GameObject clone = Instantiate(hit_effect_prefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
@@ -159,11 +165,11 @@ public class GunController : MonoBehaviour
             FineSight();
         }
     }
-
     private void FineSight()
     {
         isFineSightMode = !isFineSightMode;             //조준 활성화/비활성화
         currentGun.anim.SetBool("FineSightMode", isFineSightMode);
+        crossHair.FineSightAnimation(isFineSightMode);                 //정조준 크로스헤어 적용
 
         //기본 상태일때 정조준 클릭 -> 정조준 시점으로 변경
         if (isFineSightMode)
@@ -179,7 +185,6 @@ public class GunController : MonoBehaviour
         }
 
     }
-
     public void CancelFineSight()
     {
         if (isFineSightMode)
@@ -260,6 +265,12 @@ public class GunController : MonoBehaviour
     public Gun GetGun()
     {
         return currentGun;
+    }
+
+    //CrossHair용 반환 함수
+    public bool GetFineSightMode()
+    {
+        return isFineSightMode;
     }
 }
 

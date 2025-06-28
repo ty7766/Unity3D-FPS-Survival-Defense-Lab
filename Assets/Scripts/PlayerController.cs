@@ -28,12 +28,18 @@ public class PlayerController : MonoBehaviour
     private float originPosY;                       //기본 Y 값
     private float applyCrouchPosY;                  //통합 웅크리기
 
+    //상태변수
     private bool isGround = true;
     private bool isRun = false;
     private bool isCrouch = false;
+    private bool isWalk = false;
+
+    //움직임 체크
+    private Vector3 lastPos;                        //전 프레임의 플레이어 위치(움직임 체크용)
 
     [Header("연결 컴포넌트")]
     public Camera cam;
+    public CrossHair crossHair;
 
     private GunController gunController;
     private Rigidbody myRigid;
@@ -44,10 +50,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         myRigid = GetComponent<Rigidbody>();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();        //Camera가 2개이므로 태그를 이용하여 찾음.
         capsuleCollider = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
         gunController = FindAnyObjectByType<GunController>();
+        crossHair = FindAnyObjectByType<CrossHair>();
 
         applySpeed = walkSpeed;                     //기본 상태 초기화 (걷기)
 
@@ -62,11 +69,12 @@ public class PlayerController : MonoBehaviour
         TryRun();
         TryCrouch();
         Move();
+        MoveCheck();
         CamRotation();
         CharacterRotation();
     }
 
-    //-------------- 플레이어 이동 메소드----------
+    //-------------- 플레이어 이동 메소드 --------------------
     private void Move()
     {
         float moveDirectionX = Input.GetAxisRaw("Horizontal");     //횡이동
@@ -78,6 +86,22 @@ public class PlayerController : MonoBehaviour
         Vector3 v = (moveHorizontal + moveVertical).normalized * applySpeed;     //normalized : 벡터 정규화
 
         myRigid.MovePosition(transform.position + v * Time.deltaTime);
+    }
+
+    //------------------ 플레이어 움직임 확인 --------------------
+    private void MoveCheck()
+    {
+        if(!isRun && !isCrouch && isGround)
+        {
+            //현재 프레임의 플레이어 위치와 이전 프레임의 플레이어 위치 비교
+            if (Vector3.Distance(lastPos, transform.position) >= 0.01f)
+                isWalk = true;
+            else
+                isWalk = false;
+
+            crossHair.WalkingAnimation(isWalk);
+            lastPos = transform.position;
+        }
     }
 
     //---------------- 상하 카메라 회전 메소드 ------------------
@@ -110,7 +134,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            Walk();
+            RunningCancel();
         }
     }
 
@@ -125,11 +149,13 @@ public class PlayerController : MonoBehaviour
         gunController.CancelFineSight();
 
         isRun = true;
+        crossHair.RunningAnimation(isRun);
         applySpeed = runSpeed;
     }
-    private void Walk()
+    private void RunningCancel()
     {
         isRun = false;
+        crossHair.RunningAnimation(isRun);
         applySpeed = walkSpeed;
     }
 
@@ -153,6 +179,7 @@ public class PlayerController : MonoBehaviour
     {
         //캡슐콜라이더 영역의 y길이 반을 레이저로 쏘기
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
+        crossHair.RunningAnimation(!isGround);
     }
 
 
@@ -167,6 +194,7 @@ public class PlayerController : MonoBehaviour
     private void Crouch()
     {
         isCrouch = !isCrouch;
+        crossHair.CrouchingAnimation(isCrouch);
 
         if (isCrouch)
         {
