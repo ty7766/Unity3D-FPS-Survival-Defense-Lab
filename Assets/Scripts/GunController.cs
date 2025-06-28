@@ -254,5 +254,12 @@ public class GunController : MonoBehaviour
             }
         }
     }
+
+
+    //HUD용 반환 함수
+    public Gun GetGun()
+    {
+        return currentGun;
+    }
 }
 
