@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 26343366}
   - component: {fileID: 26343367}
   - component: {fileID: 26343368}
+  - component: {fileID: 26343369}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -186,6 +187,7 @@ MonoBehaviour:
   cam: {fileID: 330585545}
   hit_effect_prefab: {fileID: 7587487263300603943, guid: 3bfad10c84b01434b9cb86954f986031, type: 3}
   crossHair: {fileID: 1422843286}
+  playerController: {fileID: 189170870}
 --- !u!82 &26343367
 AudioSource:
   m_ObjectHideFlags: 0
@@ -304,6 +306,22 @@ MonoBehaviour:
   - {fileID: 1817010331}
   gunController: {fileID: 26343366}
   handController: {fileID: 26343365}
+--- !u!114 &26343369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26343363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c74415989b74b49bf13db96274a175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitPos: {x: 0.17, y: 0.1, z: 0}
+  fineSightLimitPos: {x: 0.008, y: 0.008, z: 0}
+  smoothSway: {x: 0.03, y: 0.03, z: 0}
+  gunController: {fileID: 26343366}
 --- !u!4 &32020001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 926468831388095538, guid: 53d0d7c64ba3e554794f076b395013b3, type: 3}
@@ -673,6 +691,7 @@ MonoBehaviour:
   jumpForce: 5
   lookSensitivity: 1
   cameraRotationLimit: 45
+  isRun: 0
   cam: {fileID: 330585545}
   crossHair: {fileID: 0}
 --- !u!54 &189170871
