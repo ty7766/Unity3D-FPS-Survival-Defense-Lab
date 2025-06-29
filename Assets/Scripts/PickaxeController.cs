@@ -1,10 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
-//CloseWeaponController를 상속
-public class HandController : CloseWeaponController
+public class PickaxeController : CloseWeaponController
 {
-    public static bool isActivate = false;       //무기 활성화 여부
+    public static bool isActivate = true;       //무기 활성화 여부
+
+    private void Start()
+    {
+        //디폴트 무기 생성
+        WeaponManager.currentWeapon = currentCloseWeapon.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnimator = currentCloseWeapon.anim;
+    }
 
     void Update()
     {

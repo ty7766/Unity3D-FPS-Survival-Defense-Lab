@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 
 //CloseWeaponController를 상속
-public class HandController : CloseWeaponController
+public class AxeController : CloseWeaponController
 {
+
     public static bool isActivate = false;       //무기 활성화 여부
 
     void Update()

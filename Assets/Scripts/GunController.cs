@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public class GunController : MonoBehaviour
 {
-    public static bool isActivate = true;       //무기 활성화 여부
+    public static bool isActivate = false;       //무기 활성화 여부
 
     [Header("현재 장착된 총")]
     [SerializeField]
@@ -32,10 +32,6 @@ public class GunController : MonoBehaviour
         originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
         crossHair = FindAnyObjectByType<CrossHair>();
-
-        //디폴트 무기 생성
-        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnimator = currentGun.GetComponent<Animator>();
     }
 
     void Update()
