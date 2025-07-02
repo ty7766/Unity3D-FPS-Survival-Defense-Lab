@@ -25,6 +25,11 @@ public class PickaxeController : CloseWeaponController
         {
             if (CheckObject())
             {
+                //대상이 바위이면 Rock스크립트의 Mining() 호출
+                if (hitInfo.transform.tag == "Rock")
+                {
+                    hitInfo.transform.GetComponent<Rock>().Mining();
+                }
                 isSwing = false;            //중복 공격 방지
                 Debug.Log(hitInfo.transform.name);
             }
