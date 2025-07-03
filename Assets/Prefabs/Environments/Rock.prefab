@@ -70,12 +70,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   destroyTime: 5
+  itemDropCount: 5
   sphereCollider: {fileID: 6173249013094949666}
   go_rock: {fileID: 2621243287132830616}
   go_debris: {fileID: 2332729957064979548}
   go_effect_prefab: {fileID: 8563545648594568346, guid: 3ea3602bbec4ad1469493ecf67a9a19d, type: 3}
-  strike_Sound: 
-  destroy_Sound: 
+  go_rock_item_prefab: {fileID: 4505119253853676078, guid: 2edb9ae1bbcf68444a05f07ae20044a3, type: 3}
+  strike_Sound: Pickaxe_Strike
+  destroy_Sound: Rock_Destroy
 --- !u!1001 &2927884223603853001
 PrefabInstance:
   m_ObjectHideFlags: 0
