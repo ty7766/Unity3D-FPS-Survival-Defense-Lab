@@ -150,4 +150,91 @@ public class StatusController : MonoBehaviour
             currentSp += spIncreaseSpeed;
         }
     }
+
+    //------------------- HP 증가 ---------------------
+    public void IncreaseHP(int _count)
+    {
+        if (currentHp + _count < hp)
+            currentHp += _count;
+        else
+            currentHp = hp;
+    }
+
+    //------------------- HP 감소 ---------------------
+    public void DecreaseHP(int _count)
+    {
+        //DP가 있는 경우 DP 먼저 감소
+        if (currentDp > 0)
+        {
+            DecreaseDP(_count);
+            return;
+        }
+
+        currentHp -= _count;
+
+        if (currentHp <= 0)
+            Debug.Log("캐릭터의 hp가 0이 되었습니다!");
+    }
+
+
+    //------------------- DP 증가 ---------------------
+    public void IncreaseDP(int _count)
+    {
+        if (currentDp + _count < dp)
+            currentDp += _count;
+        else
+            currentDp = dp;
+    }
+
+    //------------------- DP 감소 ---------------------
+    public void DecreaseDP(int _count)
+    {
+        currentDp -= _count;
+
+        if (currentDp <= 0)
+            Debug.Log("캐릭터의 dp가 0이 되었습니다!");
+    }
+
+
+    //------------------- HUNGRY 증가 ---------------------
+    public void IncreaseHUNGRY(int _count)
+    {
+        if (currentHungry + _count < hungry)
+            currentHungry += _count;
+        else
+            currentHungry = hungry;
+    }
+
+    //------------------- HUNGRY 감소 ---------------------
+    public void DecreaseHUNGRY(int _count)
+    {
+        if (currentHungry - _count < 0)
+            currentHungry = 0;
+        else
+            currentHungry -= _count;
+    }
+
+
+    //------------------- THIRSTY 증가 ---------------------
+    public void IncreaseTHIRSTY(int _count)
+    {
+        if (currentThirsty + _count < thirsty)
+            currentThirsty += _count;
+        else
+            currentThirsty = thirsty;
+    }
+
+    //------------------- THIRSTY 감소 ---------------------
+    public void DecreaseTHIRSTY(int _count)
+    {
+        if (currentThirsty - _count < 0)
+            currentThirsty = 0;
+        else
+            currentThirsty -= _count;
+    }
+
+    public int GetCurrentSP()
+    {
+        return currentSp;
+    }
 }

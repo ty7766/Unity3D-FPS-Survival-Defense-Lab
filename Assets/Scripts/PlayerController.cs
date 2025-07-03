@@ -130,11 +130,11 @@ public class PlayerController : MonoBehaviour
     private void TryRun()
     {
         //LS를 누르고 있으면 달리기 전환, 떼면 걷기 전환
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && statusController.GetCurrentSP() > 0)
         {
             Running();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) || statusController.GetCurrentSP() <= 0)
         {
             RunningCancel();
         }
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
     //----------------------- 플레이어 점프 메소드 ----------------------------
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && statusController.GetCurrentSP() > 0)
         {
             Jump();
         }
