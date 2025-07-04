@@ -72,8 +72,12 @@ public class PlayerController : MonoBehaviour
         TryCrouch();
         Move();
         MoveCheck();
-        CamRotation();
-        CharacterRotation();
+        //인벤토리 창이 보일때는 카메라 회전 X
+        if(!Inventory.inventoryActivated)
+        {
+            CamRotation();
+            CharacterRotation();
+        }
     }
 
     //-------------- 플레이어 이동 메소드 --------------------

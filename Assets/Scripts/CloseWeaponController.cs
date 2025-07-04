@@ -15,12 +15,15 @@ public abstract class CloseWeaponController : MonoBehaviour
     //------------------- 플레이어 공격 ---------------------------
     protected void TryAttack()
     {
-        //좌클릭하면 상호작용
-        if (Input.GetButton("Fire1"))
+        if(!Inventory.inventoryActivated)
         {
-            if (!isAttack)
+            //좌클릭하면 상호작용
+            if (Input.GetButton("Fire1"))
             {
-                StartCoroutine(AttackCoroutine());
+                if (!isAttack)
+                {
+                    StartCoroutine(AttackCoroutine());
+                }
             }
         }
     }
