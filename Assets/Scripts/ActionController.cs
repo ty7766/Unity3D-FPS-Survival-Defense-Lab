@@ -10,6 +10,8 @@ public class ActionController : MonoBehaviour
     private LayerMask layerMask;    //아이템 레이어에만 상호작용 되도록 설정
     [SerializeField]
     private Text actionText;        //습득 가능시 텍스트
+    [SerializeField]
+    private Inventory inventory;
 
     private bool pickupActivated;   //습득 가능시 활성화
 
@@ -67,6 +69,7 @@ public class ActionController : MonoBehaviour
             if (hitInfo.transform != null)
             {
                 Debug.Log(hitInfo.transform.GetComponent<ItemPickUp>().item.itemName + " 획득했습니다!");
+                inventory.AcquireItem(hitInfo.transform.GetComponent<ItemPickUp>().item);
                 Destroy(hitInfo.transform.gameObject);
                 InfoDisappear();
             }
