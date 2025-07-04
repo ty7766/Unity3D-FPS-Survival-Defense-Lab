@@ -7367,6 +7367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubMachineGun
       objectReference: {fileID: 0}
+    - target: {fileID: 1351418798952373218, guid: f42ee2e8100725443b60aee38d19b4f8, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 1e9f34cd1bfa606459be2636dd6226f0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
