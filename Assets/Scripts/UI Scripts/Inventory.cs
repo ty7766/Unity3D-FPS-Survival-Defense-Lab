@@ -45,6 +45,7 @@ public class Inventory : MonoBehaviour
         go_InventoryBase.SetActive(false);
     }
 
+    //----------------------------- æ∆¿Ã≈€ »πµÊ ------------------------------
     public void AcquireItem(Item _item, int _count = 1)
     {
         //»πµÊ æ∆¿Ã≈€¿Ã ¿Â∫Ò∞° æ∆¥— ∞ÊøÏ
@@ -73,5 +74,5 @@ public class Inventory : MonoBehaviour
                 return;
             }
         }
-    }¿Œ
+    }
 }
