@@ -21,9 +21,12 @@ public class ItemEffectDatabase : MonoBehaviour
     private StatusController statusController;
     [SerializeField]
     private WeaponManager weaponManager;
+    [SerializeField]
+    private SlotToolTip slotToolTip;
 
     private const string HP = "HP", SP = "SP", DP = "DP", HUNGRY = "HUNGRY", THIRSTY = "THIRSTY", SATISFY = "SATISFY";
 
+    //-------------------------- 아이템 사용 -----------------------------
     public void UseItem(Item _item)
     {
         //장비인 경우 장착
@@ -73,5 +76,14 @@ public class ItemEffectDatabase : MonoBehaviour
         }
     }
     
-
+    //--------------------------- 슬롯 툴팁 활성 ----------------------------
+    public void ShowToolTip(Item _item, Vector3 _pos)
+    {
+        slotToolTip.ShowToolTip(_item, _pos);
+    }
+    //--------------------------- 슬롯 툴팁 비활성 ----------------------------
+    public void HideToolTip()
+    {
+        slotToolTip.HideToolTip();
+    }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     [Header("획득 아이템 속성")]
     public Item item;           //획득 아이템
@@ -153,5 +153,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             DragSlot.instance.dragSlot.ClearSlot();
         }
+    }
+
+    //---------------------------- 마우스가 들어올 때 툴팁 활성 -------------------------------------
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null)
+            itemEffectDatabase.ShowToolTip(item, transform.position);
+    }
+
+    //---------------------------- 마우스가 나갈 때 툴팁 비활성 -------------------------------------
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        itemEffectDatabase.HideToolTip();
     }
 }
