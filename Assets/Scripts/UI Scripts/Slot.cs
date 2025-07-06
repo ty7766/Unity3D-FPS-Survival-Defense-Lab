@@ -15,11 +15,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     [SerializeField]
     private GameObject go_CountImage;
 
-    private WeaponManager weaponManager;
+    private ItemEffectDatabase itemEffectDatabase;
 
     void Start()
     {
-        weaponManager = FindAnyObjectByType<WeaponManager>();
+        itemEffectDatabase = FindAnyObjectByType<ItemEffectDatabase>();
     }
 
     //--------------------------- 인벤토리에 획득 아이템 넣기 -------------------------------
@@ -83,17 +83,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             if(item != null)
             {
-                //장비인 경우 장착
-                if(item.itemType == Item.ItemType.Equipment)
-                {
-                    StartCoroutine(weaponManager.ChangeWeaponCoroutine(item.weaponType, item.itemName));
-                }
                 //재료인 경우 소모
-                else
-                {
-                    Debug.Log(item.itemName + " 을 사용했습니다!");
+                itemEffectDatabase.UseItem(item);
+                if(item.itemType == Item.ItemType.Used)
                     SetSlotCount(-1);
-                }
             }
         }
     }
