@@ -2351,8 +2351,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: dc9744241561c2e4d9094a28c8e2406f, type: 3}
   - name: Rock_Destroy
     clip: {fileID: 8300000, guid: 61f91780a95ee9b4bb0d76ec75a87555, type: 3}
-  - name: 
-    clip: {fileID: 0}
+  - name: Animal_Hit
+    clip: {fileID: 8300000, guid: 122d7b1788b2bb64eb7cdbf41e34616d, type: 3}
   - name: 
     clip: {fileID: 0}
   - name: 
@@ -7091,9 +7091,10 @@ GameObject:
   - component: {fileID: 1966631429}
   - component: {fileID: 1966631428}
   - component: {fileID: 1966631431}
+  - component: {fileID: 1966631432}
   m_Layer: 0
   m_Name: Pig
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7155,7 +7156,7 @@ Transform:
   m_GameObject: {fileID: 1966631427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.74, y: 2.241, z: 39.85}
+  m_LocalPosition: {x: 30.2, y: 2.241, z: 39.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7175,13 +7176,118 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalName: Pig
-  hp: 2
-  walkSpeed: 2
+  hp: 3
+  walkSpeed: 1
   walkTime: 5
+  runSpeed: 15
+  runTime: 4
   waitTime: 4
   anim: {fileID: 1879224029}
   rd: {fileID: 1966631429}
   boxCollider: {fileID: 1966631428}
+  soundPigIdle:
+  - {fileID: 8300000, guid: 72e9c0281fd7c6542ba6f9592098c32c, type: 3}
+  - {fileID: 8300000, guid: e65d4ecd4063d894a8cd89c5487d506b, type: 3}
+  - {fileID: 8300000, guid: 2ed963c7d35cb7248821a084846ca2ce, type: 3}
+  soundPigHurt: {fileID: 8300000, guid: 76b43e2e1c408d345b8b3ad223aef258, type: 3}
+  soundPigDead: {fileID: 8300000, guid: d094f7a7ed1978948b6573941ed8cd65, type: 3}
+--- !u!82 &1966631432
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966631427}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2ed963c7d35cb7248821a084846ca2ce, type: 3}
+  m_Resource: {fileID: 8300000, guid: 2ed963c7d35cb7248821a084846ca2ce, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 5
+  MaxDistance: 30
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.3277855
+      value: 1.0113411
+      inSlope: -3.678573
+      outSlope: -3.678573
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.1922409
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.5044916
+      outSlope: -1.5044916
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.5857016
+      value: 1
+      inSlope: 0.0076382556
+      outSlope: 0.0076382556
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1987126925
 GameObject:
   m_ObjectHideFlags: 0
