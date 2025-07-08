@@ -27,8 +27,11 @@ public class PickaxeController : CloseWeaponController
             {
                 //대상이 바위이면 Rock스크립트의 Mining() 호출
                 if (hitInfo.transform.tag == "Rock")
-                {
                     hitInfo.transform.GetComponent<Rock>().Mining();
+                else if (hitInfo.transform.tag == "NPC")
+                {
+                    SoundManager.instance.PlaySoundEffects("Animal_Hit");
+                    hitInfo.transform.GetComponent<Pig>().Damage(1, transform.position);
                 }
                 isSwing = false;            //중복 공격 방지
                 Debug.Log(hitInfo.transform.name);
