@@ -23,6 +23,7 @@ public class GunController : MonoBehaviour
     public GameObject hit_effect_prefab;       //피격 이펙트
     public CrossHair crossHair;
     public PlayerController playerController;
+    public LayerMask layerMask;
 
     private AudioSource audioSource;
 
@@ -104,7 +105,8 @@ public class GunController : MonoBehaviour
             new Vector3(Random.Range(-crossHair.GetAccuracy() - currentGun.accuracy, crossHair.GetAccuracy() + currentGun.accuracy),        //x축 반동
                         Random.Range(-crossHair.GetAccuracy() - currentGun.accuracy, crossHair.GetAccuracy() + currentGun.accuracy),        //y축 반동
                         0)
-            ,out hitInfo, currentGun.range))
+            //fix. 시야각 구현으로 인해 플레이어의 레이어가 Player로 되어 CloseWeapon으로 자기 자신이 피격되는 것 방지
+            , out hitInfo, currentGun.range, layerMask))
         {
             //표면이 바라보는 방향에 따라서 피격 이펙트의 방향을 적용
             GameObject clone = Instantiate(hit_effect_prefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
