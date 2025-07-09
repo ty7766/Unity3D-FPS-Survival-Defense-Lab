@@ -87,7 +87,7 @@ public class Pig : MonoBehaviour
 
     //------------------------------------------ 뛰기 메소드 ---------------------------------------
     //공격자에게 공격을 받은 순간 공격자의 반대 방향으로 뛰기
-    private void Run(Vector3 _targetPos)
+    public void Run(Vector3 _targetPos)
     {
         //뛰는 방향을 공격자의 반대방향으로 설정
         direc = Quaternion.LookRotation(transform.position - _targetPos).eulerAngles;
