@@ -174,6 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCloseWeapon: {fileID: 1817010331}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!114 &26343366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +195,9 @@ MonoBehaviour:
   hit_effect_prefab: {fileID: 7587487263300603943, guid: 3bfad10c84b01434b9cb86954f986031, type: 3}
   crossHair: {fileID: 1422843286}
   playerController: {fileID: 189170870}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!82 &26343367
 AudioSource:
   m_ObjectHideFlags: 0
@@ -345,6 +351,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCloseWeapon: {fileID: 1929517376}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!114 &26343371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +367,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCloseWeapon: {fileID: 615613597}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!1 &30427294
 GameObject:
   m_ObjectHideFlags: 0
