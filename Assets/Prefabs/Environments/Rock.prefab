@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8959719909808841580}
   - component: {fileID: 6173249013094949666}
   - component: {fileID: 6994625700038055310}
+  - component: {fileID: 6096796424061610623}
+  - component: {fileID: 5685731316172219731}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Rock
@@ -78,6 +80,49 @@ MonoBehaviour:
   go_rock_item_prefab: {fileID: 4505119253853676078, guid: 2edb9ae1bbcf68444a05f07ae20044a3, type: 3}
   strike_Sound: Pickaxe_Strike
   destroy_Sound: Rock_Destroy
+--- !u!208 &6096796424061610623
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588806804009688933}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1, y: 1, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!54 &5685731316172219731
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588806804009688933}
+  serializedVersion: 4
+  m_Mass: 0.01
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &2927884223603853001
 PrefabInstance:
   m_ObjectHideFlags: 0

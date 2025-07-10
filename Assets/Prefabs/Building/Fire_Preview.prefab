@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3535016944829092809}
+  - component: {fileID: 5640612284933458687}
+  - component: {fileID: 661566342974980875}
   m_Layer: 0
   m_Name: Fire_Preview
   m_TagString: Untagged
@@ -35,6 +37,42 @@ Transform:
   - {fileID: 179890123981713212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5640612284933458687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634153653415087811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79317727c842a940946a12a0cf88735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerGround: 9
+  green: {fileID: 2100000, guid: db525f7cf24b2e14d8505b6054d275bc, type: 2}
+  red: {fileID: 2100000, guid: 581e4ad8b7fbc6f4ab4c1da820b799b7, type: 2}
+--- !u!65 &661566342974980875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634153653415087811}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.4076399, z: 1}
+  m_Center: {x: 0, y: 0.22844593, z: 0}
 --- !u!1001 &429425674268870871
 PrefabInstance:
   m_ObjectHideFlags: 0
