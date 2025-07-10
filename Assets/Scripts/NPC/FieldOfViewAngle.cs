@@ -28,8 +28,8 @@ public class FieldOfViewAngle : MonoBehaviour
         Vector3 leftBoundary = BoundaryAngle(-viewAngle * 0.5f);
         Vector3 rightBoundary = BoundaryAngle(viewAngle * 0.5f);
 
-        Debug.DrawRay(transform.position - transform.up, leftBoundary, Color.red);
-        Debug.DrawRay(transform.position - transform.up, rightBoundary, Color.red);
+        Debug.DrawRay(transform.position + transform.up, leftBoundary, Color.red);
+        Debug.DrawRay(transform.position + transform.up, rightBoundary, Color.red);
 
         //플레이어 Mask만 레이더에 적용하여 플레이어가 시야각에 들어오면 상호작용되게 설정
         Collider[] _target = Physics.OverlapSphere(transform.position, viewDistance, targetMask);
@@ -49,13 +49,13 @@ public class FieldOfViewAngle : MonoBehaviour
                 if (_angle < viewAngle * 0.5f)
                 {
                     RaycastHit hitInfo;
-                    if (Physics.Raycast(transform.position - transform.up, _direc, out hitInfo, viewDistance))
+                    if (Physics.Raycast(transform.position + transform.up, _direc, out hitInfo, viewDistance))
                     {
                         //4. 플레이어 - 오브젝트 간 장애물이 있는 경우
                         if (hitInfo.transform.name == "Player")
                         {
                             Debug.Log("플레이어가 돼지 시야 내에 있습니다");
-                            Debug.DrawRay(transform.position - transform.up, _direc, Color.blue);
+                            Debug.DrawRay(transform.position + transform.up, _direc, Color.blue);
                             //5. 플레이어의 반대방향으로 뛰기
                             pig.Run(hitInfo.transform.position);
                         }
