@@ -121,7 +121,8 @@ public class CraftManual : MonoBehaviour
     //------------------------- 건설 메소드 ------------------------
     private void Build()
     {
-        if(isPreviewActivated)
+        //건설 가능한 지형인지 확인
+        if(isPreviewActivated && go_Preview.GetComponent<PreviewObject>().isBuildable())
         {
             Instantiate(go_Prefab, hitInfo.point, Quaternion.identity);
             Destroy(go_Preview);
