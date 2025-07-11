@@ -859,7 +859,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!154 &142245514
 TerrainCollider:
@@ -930,11 +930,11 @@ Transform:
   m_GameObject: {fileID: 142245513}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -613.2861, y: -283.01456, z: -5.2462387}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1531942107}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &166837098
 GameObject:
@@ -1742,7 +1742,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 695
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -6472,7 +6472,6 @@ Transform:
   - {fileID: 243357557}
   - {fileID: 752204140}
   - {fileID: 1383331114}
-  - {fileID: 142245516}
   - {fileID: 410087041}
   - {fileID: 816961901}
   - {fileID: 409276281}
@@ -9774,3 +9773,4 @@ SceneRoots:
   - {fileID: 2688261546432160803}
   - {fileID: 1945133979}
   - {fileID: 1966631430}
+  - {fileID: 142245516}
