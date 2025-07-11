@@ -41,7 +41,7 @@ public class SimpleTrap : MonoBehaviour
                     rd[i].useGravity = true;
                 }
 
-                StatusController statusController = FindObjectOfType<StatusController>();
+                StatusController statusController = FindAnyObjectByType<StatusController>();
                 if (statusController != null)
                 {
                     statusController.DecreaseHP(damage);

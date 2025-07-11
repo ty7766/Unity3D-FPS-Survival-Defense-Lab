@@ -14,8 +14,6 @@ public class DayAndNight : MonoBehaviour
     private float dayFogDensity;                        //낮 상태의 Fog 밀도
     private float currentFogDensity;                    //계산
 
-    private bool isNight;           //밤인지 아닌지
-
 
     void Start()
     {
@@ -27,11 +25,11 @@ public class DayAndNight : MonoBehaviour
         transform.Rotate(Vector3.right, 0.1f * secondPerRealTimeSecond * Time.deltaTime);
 
         if (transform.eulerAngles.x >= 170)
-            isNight = true;
+            GameManager.isNight = true;
         else if (transform.eulerAngles.x >= 340)
-            isNight = false;
+            GameManager.isNight = false;
 
-        if(isNight)
+        if (GameManager.isNight)
         {
             if(currentFogDensity <= nightFogDensity)
             {
