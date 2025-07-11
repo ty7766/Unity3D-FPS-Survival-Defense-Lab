@@ -66,15 +66,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        IsGround();
-        TryJump();
-        TryRun();
-        TryCrouch();
-        Move();
-        MoveCheck();
-        //인벤토리 창이 보일때는 카메라 회전 X
-        if(!Inventory.inventoryActivated)
+        if (GameManager.canPlayerMove)
         {
+            IsGround();
+            TryJump();
+            TryRun();
+            TryCrouch();
+            Move();
+            MoveCheck();
             CamRotation();
             CharacterRotation();
         }

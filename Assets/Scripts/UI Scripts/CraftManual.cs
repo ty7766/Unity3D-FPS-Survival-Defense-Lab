@@ -70,12 +70,14 @@ public class CraftManual : MonoBehaviour
     //--------------------------------- ÅÇ ¿­±â ---------------------------------
     private void OpenWindow()
     {
+        GameManager.isOpenCraftManual = true;
         isActivated = true;
         go_BaseUI.SetActive(true);
     }
     //--------------------------------- ÅÇ ´Ý±â ---------------------------------
     private void CloseWindow()
     {
+        GameManager.isOpenCraftManual = false;
         isActivated = false;
         go_BaseUI.SetActive(false);
     }
