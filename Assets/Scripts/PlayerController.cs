@@ -15,6 +15,12 @@ public class PlayerController : MonoBehaviour
     private float crouchPosY;                       //웅크리는 정도
     [SerializeField]
     private float jumpForce;                        //점프
+    [SerializeField]    
+    private float swimSpeed;                        //수영 이동 속도
+    [SerializeField]
+    private float swimFastSpeed;                    //수영 대시 속도
+    [SerializeField]
+    private float upSwimSpeed;                      //위로 수영 속도
 
     [Header("카메라 조작")]
     [SerializeField]
@@ -68,9 +74,13 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.canPlayerMove)
         {
+            WaterCheck();
             IsGround();
             TryJump();
-            TryRun();
+            if(!GameManager.isWater)
+            {
+                TryRun();
+            }
             TryCrouch();
             Move();
             MoveCheck();
@@ -168,9 +178,13 @@ public class PlayerController : MonoBehaviour
     //----------------------- 플레이어 점프 메소드 ----------------------------
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround && statusController.GetCurrentSP() > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && statusController.GetCurrentSP() > 0 && !GameManager.isWater)
         {
             Jump();
+        }
+        else if(Input.GetKey(KeyCode.Space) && GameManager.isWater)
+        {
+            UpSwim();
         }
     }
     private void Jump()
@@ -238,5 +252,24 @@ public class PlayerController : MonoBehaviour
         }
         //Lerp를 사용하면 목적 좌표까지 딱 떨어지지 않게 끝남 -> 부드럽게 적용시키기 위해 어느정도 반복 후 원하는 목적 좌표 값으로 변경
         cam.transform.localPosition = new Vector3(0, applyCrouchPosY, 0);
+    }
+
+
+    //------------------------------- 수영 속도 관리 --------------------------------
+    private void WaterCheck()
+    {
+        if(GameManager.isWater)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+                applySpeed = swimFastSpeed;
+            else
+                applySpeed = swimSpeed;
+        }
+    }
+
+    //----------------------------- 위로 수영 ----------------------------
+    private void UpSwim()
+    {
+        myRigid.linearVelocity = transform.up * upSwimSpeed;
     }
 }

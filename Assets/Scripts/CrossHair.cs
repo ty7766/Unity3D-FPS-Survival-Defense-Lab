@@ -12,34 +12,46 @@ public class CrossHair : MonoBehaviour
     //------------------- 크로스헤어 애니메이션 재생 -----------------------
     public void WalkingAnimation(bool _flag)
     {
-        WeaponManager.currentWeaponAnimator.SetBool("Walk", _flag);
-        animator.SetBool("Walking", _flag);
+        if(!GameManager.isWater)
+        {
+            WeaponManager.currentWeaponAnimator.SetBool("Walk", _flag);
+            animator.SetBool("Walking", _flag);
+        }
     }
     public void RunningAnimation(bool _flag)
     {
-        WeaponManager.currentWeaponAnimator.SetBool("Run", _flag);
-        animator.SetBool("Running", _flag);
+        if (!GameManager.isWater)
+        {
+            WeaponManager.currentWeaponAnimator.SetBool("Run", _flag);
+            animator.SetBool("Running", _flag);
+        }
     }
     public void JumpAnimation(bool _flag)
     {
-        animator.SetBool("Running", _flag);
+        if (!GameManager.isWater)
+            animator.SetBool("Running", _flag);
     }
     public void CrouchingAnimation(bool _flag)
     {
-        animator.SetBool("Crouching", _flag);
+        if (!GameManager.isWater)
+            animator.SetBool("Crouching", _flag);
     }
     public void FineSightAnimation(bool _flag)
     {
-        animator.SetBool("FineSight", _flag);
+        if (!GameManager.isWater)
+            animator.SetBool("FineSight", _flag);
     }
     public void FireAnimation()
     {
-        if (animator.GetBool("Walking"))
-            animator.SetTrigger("Walk_Fire");
-        else if (animator.GetBool("Crouching"))
-            animator.SetTrigger("Crouch_Fire");
-        else
-            animator.SetTrigger("Idle_Fire");
+        if (!GameManager.isWater)
+        {
+            if (animator.GetBool("Walking"))
+                animator.SetTrigger("Walk_Fire");
+            else if (animator.GetBool("Crouching"))
+                animator.SetTrigger("Crouch_Fire");
+            else
+                animator.SetTrigger("Idle_Fire");
+        }
     }
 
     //--------------------- 반동 수치 설정 ----------------------

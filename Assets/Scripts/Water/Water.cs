@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Water : MonoBehaviour
 {
@@ -9,6 +10,19 @@ public class Water : MonoBehaviour
     private Color waterColor;               //물속 화면
     [SerializeField]
     private float waterFogDensity;          //물 탁함 정도
+
+    [Header("물속 산소량 UI")]
+    [SerializeField]
+    private float totalOxygen;              //총 산소량
+    private float currentOxygen;            //현재 산소량
+    [SerializeField]
+    private Text text_currentOxygen;
+    [SerializeField]
+    private Image image_gauge;
+    [SerializeField]
+    private GameObject go_BaseUI;
+    [SerializeField]
+    private Text text_totalOxygen;
 
     //원래 값
     private float originDrag;
@@ -28,6 +42,7 @@ public class Water : MonoBehaviour
     private float breatheTime;
 
     private float currentBreatheTime;
+    private float temp;                     //산소량 감소 속도 관리 위함
 
     [Header("사운드")]
     [SerializeField]
@@ -36,7 +51,8 @@ public class Water : MonoBehaviour
     private string sound_WaterIn;
     [SerializeField]
     private string sound_Breathe;
-
+    
+    private StatusController statusController;
     
     //초기화
     void Start()
@@ -45,6 +61,10 @@ public class Water : MonoBehaviour
         originFogDensity = RenderSettings.fogDensity;
         originDrag = 0;
         RenderSettings.fog = true;
+
+        statusController = FindAnyObjectByType<StatusController>();
+        currentOxygen = totalOxygen;
+        text_totalOxygen.text = totalOxygen.ToString();
     }
 
     private void Update()
@@ -58,6 +78,9 @@ public class Water : MonoBehaviour
                 currentBreatheTime = 0;
             }
         }
+
+        //산소량 감소
+        DecreaseOxygen();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -79,7 +102,11 @@ public class Water : MonoBehaviour
     //-------------------------------------- 물 속에 들어감 ---------------------------------------
     private void GetWater(Collider _player)
     {
+        //사운드 재생
         SoundManager.instance.PlaySoundEffects(sound_WaterIn);
+
+        //UI 활성
+        go_BaseUI.SetActive(true);
 
         GameManager.isWater = true;
         _player.transform.GetComponent<Rigidbody>().linearDamping = waterDrag;
@@ -101,6 +128,11 @@ public class Water : MonoBehaviour
     {
         if(GameManager.isWater)
         {
+            //UI 비활성
+            go_BaseUI.SetActive(false);
+            //산소 초기화
+            currentOxygen = totalOxygen;
+            //사운드 재생
             SoundManager.instance.PlaySoundEffects(sound_WaterOut);
 
             GameManager.isWater = false;
@@ -116,6 +148,27 @@ public class Water : MonoBehaviour
             {
                 RenderSettings.fogColor = originNightColor;
                 RenderSettings.fogDensity = originNightFogDensity;
+            }
+        }
+    }
+
+    //------------------------- 산소량 감소 ------------------------------
+    private void DecreaseOxygen()
+    {
+        if(GameManager.isWater)
+        {
+            currentOxygen -= Time.deltaTime;
+            text_currentOxygen.text = Mathf.RoundToInt(currentOxygen).ToString();
+            image_gauge.fillAmount = currentOxygen / totalOxygen;
+
+            if(currentOxygen <= 0)
+            {
+                temp += Time.deltaTime;
+                if (temp >= 1)
+                {
+                    statusController.DecreaseDP(1);
+                    temp = 0;
+                }
             }
         }
     }

@@ -9,21 +9,26 @@ public class GameManager : MonoBehaviour
     public static bool isNight = false;                 //밤인지 아닌지
     public static bool isWater = false;                 //물속인지 아닌지
 
+    private WeaponManager weaponManager;
+    private bool flag = false;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;           //마우스 커서 고정
         Cursor.visible = false;
+        weaponManager = FindAnyObjectByType<WeaponManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //마우스가 필요한 동작에 마우스 오픈
         if (isOpenInventory || isOpenCraftManual)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             canPlayerMove = false;
         }
+        //이동 중일 때는 마우스 숨김
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -31,5 +36,23 @@ public class GameManager : MonoBehaviour
             canPlayerMove = true;
         }
 
+        //물속에 있으면 무기 숨김
+        if (isWater)
+        {
+            if (!flag)
+            {
+                StopAllCoroutines();
+                StartCoroutine(weaponManager.WeaponInCoroutine());
+                flag = true;
+            }
+        }
+        else
+        {
+            if(flag)
+            {
+                weaponManager.WeaponOut();
+                flag = false;
+            }
+        }
     }
 }
