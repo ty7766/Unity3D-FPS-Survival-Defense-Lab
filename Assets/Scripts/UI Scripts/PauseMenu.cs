@@ -4,6 +4,8 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
     private GameObject go_BaseUI;
+    [SerializeField]
+    private SaveAndLoad saveAndLoad;
 
     void Update()
     {
@@ -33,11 +35,13 @@ public class PauseMenu : MonoBehaviour
     public void ClickSave()
     {
         Debug.Log("세이브");
+        saveAndLoad.SaveData();
     }
 
     public void ClickLoad()
     {
         Debug.Log("로드");
+        saveAndLoad.LoadData();
     }
 
     public void ClickExit()

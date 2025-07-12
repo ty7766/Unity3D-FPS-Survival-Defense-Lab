@@ -1,0 +1,1 @@
+{"playerPos":{"x":27.01380729675293,"y":1.0000001192092896,"z":46.93156433105469},"playerRotation":{"x":0.0,"y":190.80001831054688,"z":0.0},"inventoryArrayNum":[3,3],"inventoryItemName":["Rock","Rock"],"inventoryItemNum":[5,5]}

@@ -12,6 +12,19 @@ public class Inventory : MonoBehaviour
 
     private Slot[] slots;
     
+    public Slot[] GetSlots() { return slots; }              //저장될 슬롯들
+
+    [SerializeField]
+    private Item[] items;
+
+    public void LoadToInventory(int _arrayNum, string _itemName, int _itemNum)
+    {
+        //모든 인벤토리 검사해서 아이템들을 복사
+        for(int i = 0; i < items.Length; i++)
+            if (items[i].itemName == _itemName)
+                slots[_arrayNum].AddItem(items[i], _itemNum);
+    }
+
     void Start()
     {
         //자식 슬롯들의 속성을 한꺼번에 관리

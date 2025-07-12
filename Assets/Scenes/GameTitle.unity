@@ -729,6 +729,7 @@ GameObject:
   - component: {fileID: 1829057075}
   - component: {fileID: 1829057074}
   - component: {fileID: 1829057078}
+  - component: {fileID: 1829057079}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -832,6 +833,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: GameStage
+--- !u!114 &1829057079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829057073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546e3c03a2bcaeb42b81fadc6fc4e11d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1833397363
 GameObject:
   m_ObjectHideFlags: 0
