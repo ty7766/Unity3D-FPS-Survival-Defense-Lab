@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static bool isNight = false;                 //밤인지 아닌지
     public static bool isWater = false;                 //물속인지 아닌지
+    public static bool isPause = false;                 //일시정지 상태인지 아닌지
 
     private WeaponManager weaponManager;
     private bool flag = false;
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //마우스가 필요한 동작에 마우스 오픈
-        if (isOpenInventory || isOpenCraftManual)
+        if (isOpenInventory || isOpenCraftManual || isPause)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
